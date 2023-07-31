@@ -1,4 +1,5 @@
 var operand1,operand2,operator;
+var display = '';
 
 function add(n,m) {
     return n + m;
