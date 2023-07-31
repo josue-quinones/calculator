@@ -62,20 +62,30 @@ operatorButtons.forEach(btn => {
             operator = btn.textContent;
             displayIn = '';
         } 
-        // else { // need to evaluate
+        else { // need to evaluate
 
-        // }
+        }
+        console.log(operand1,operator,operand2)
+        console.log(displayIn);
     });
 });
 
 functionButtons.forEach(btn => {
-    if (btn.textContent == "Clear") {
-        btn.addEventListener('click', () => {
+    btn.addEventListener('click', () => {
+        if (btn.textContent == "Clear") {
             displayDiv.textContent = '';
             operand1 = '';
             operand2 = '';
             operator = '';
             displayIn = '';
-        });
-    }
+        } else if (btn.textContent == "=") {
+            operand2 = parseInt(displayIn);
+            let tmp = operate(operator,operand1,operand2);
+            console.log(tmp);
+            displayDiv.textContent = '';
+            updateDisplay(tmp);
+        } else {
+            console.log(btn.textContent)
+        }
+    })
 });
