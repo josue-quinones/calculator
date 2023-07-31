@@ -1,0 +1,14 @@
+div.buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+div.row {
+    display: flex;
+}
+
+button {
+    width: 100px;
+    height: 100px;
+    font-size: 24px;
+}

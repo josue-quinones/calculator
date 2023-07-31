@@ -1,6 +1,9 @@
 var operand1,operand2,operator;
 var display = '';
 
+const displayDiv = document.querySelector('div.display');
+const numberButtons = document.querySelectorAll('div.number button');
+
 function add(n,m) {
     return n + m;
 }
@@ -31,3 +34,15 @@ function operate(operator,op1,op2) {
             break;
     }
 }
+
+function updateDisplay() {
+    displayDiv.textContent = display;
+}
+
+numberButtons.forEach(button => {
+    button.addEventListener('click',e => {
+        display += button.textContent;
+        console.log(display);
+        updateDisplay();
+    });
+})
