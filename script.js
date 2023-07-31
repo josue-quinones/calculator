@@ -1,9 +1,13 @@
-var operand1,operand2,operator;
-var display = '';
+// global variables
+var operand1 = '',operand2='',operator='', displayIn = '';
 
+// document nodes
 const displayDiv = document.querySelector('div.display');
+const functionButtons = document.querySelectorAll('div.function button');
 const numberButtons = document.querySelectorAll('div.number button');
+const operatorButtons = document.querySelectorAll('div.operator button');
 
+// math functions
 function add(n,m) {
     return n + m;
 }
@@ -20,8 +24,8 @@ function divide(n,m) {
     return n / m;
 }
 
-function operate(operator,op1,op2) {
-    switch(operator) {
+function operate(o,op1,op2) {
+    switch(o) {
         case "+":
             return add(op1,op2);
         case "-":
@@ -35,14 +39,43 @@ function operate(operator,op1,op2) {
     }
 }
 
-function updateDisplay() {
-    displayDiv.textContent = display;
+// display function
+function updateDisplay(val) {
+    displayDiv.textContent += val;
 }
 
-numberButtons.forEach(button => {
-    button.addEventListener('click',e => {
-        display += button.textContent;
-        console.log(display);
-        updateDisplay();
-    });
+
+displayIn = displayDiv.textContent;
+
+numberButtons.forEach(btn => {
+    btn.addEventListener('click',() => {
+        updateDisplay(btn.textContent)
+        displayIn += btn.textContent;
+    })
 })
+
+operatorButtons.forEach(btn => {
+    btn.addEventListener('click',() => {
+        updateDisplay(" " + btn.textContent + " ");
+        if (operand2 == '' && operator == '') {
+            operand1 = parseInt(displayIn);
+            operator = btn.textContent;
+            displayIn = '';
+        } 
+        // else { // need to evaluate
+
+        // }
+    });
+});
+
+functionButtons.forEach(btn => {
+    if (btn.textContent == "Clear") {
+        btn.addEventListener('click', () => {
+            displayDiv.textContent = '';
+            operand1 = '';
+            operand2 = '';
+            operator = '';
+            displayIn = '';
+        });
+    }
+});
