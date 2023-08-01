@@ -7,14 +7,14 @@ Written in:
 * JavaScript
 
 Goals:
-- [ ] Can solve all basic math operators (+,-,/,*)
-- [ ] Takes two operands and an operator
-- [ ] Can do math with integers and float numbers
-- [ ] Divide by zero doesn't crash the calculator
-- [ ] Long decimals are rounded
+- [x] Can solve all basic math operators (+,-,/,*)
+- [x] Takes two operands and an operator
+- [x] Can do math with integers and float numbers
+- [x] Divide by zero doesn't crash the calculator
+- [x] Long decimals are rounded
 - [ ] There is a backspace button
 - [ ] There is keyboard support
-- [ ] Does not use the eval function
+- [x] Does not use the eval function
 
 Plan:
 1. Add javascript functions that can add, substract, multiply and divide
