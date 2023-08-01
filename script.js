@@ -82,8 +82,13 @@ operatorButtons.forEach(btn => {
             operator = btn.textContent;
             displayIn = '';
         } else {
-            operand2 = parseInt(displayIn);
-            if (operator == "/" && operand2 == 0) {
+            if (displayIn.indexOf(".") > -1) {
+                operand2 = parseFloat(parseFloat(displayIn).toFixed(4));
+            } else {
+                operand2 = parseInt(displayIn);
+            }
+        
+            if (operator == "/" && operand2 === 0) {
                 displayDiv.textContent = 'No division by zero. Clearing values...';
                 operand1 = 0;
                 operand2 = '';
@@ -119,7 +124,7 @@ functionButtons.forEach(btn => {
             case "=":
                 if (operand1 === '' || operator === '' || displayIn === '') {
                     console.error("Invalid operation");
-                } else if (operand2 == 0 && operator == '/') {
+                } else if (operand2 === 0 && operator == '/') {
                     displayDiv.textContent = 'No division by zero. Clearing values...';
                     operand1 = 0;
                     operand2 = '';
@@ -128,7 +133,11 @@ functionButtons.forEach(btn => {
                         displayDiv.textContent = 0;
                     }, 1500);
                 } else {
-                    operand2 = parseInt(displayIn);
+                    if (displayIn.indexOf('.') > -1)  {
+                        operand2 = parseFloat(parseFloat(displayIn).toFixed(4));
+                    } else {
+                        operand2 = parseInt(displayIn);
+                    }
                     let result = operate(operator,operand1,operand2);
                     displayDiv.textContent = '';
                     updateDisplay(result);
@@ -136,6 +145,12 @@ functionButtons.forEach(btn => {
                     operand2 = '';
                     operator = '';
                     displayIn = result.toString();
+                }
+                break;
+            case ".":
+                if (displayIn.indexOf(".") == -1) {
+                    displayIn += btn.textContent;
+                    updateDisplay(btn.textContent);    
                 }
                 break;
             default:
