@@ -56,7 +56,7 @@ function updateDisplay(val) {
 }
 
 function logger(btn) {
-    // if (arguments.length > 1) 
+    if (arguments.length > 1) 
         console.log("o:"+operator+"\nop1:"+operand1+"\nop2:"+operand2+"\ndisplayIn:"+displayIn+"\nfunc:"+btn.textContent)
 }
 
@@ -152,6 +152,20 @@ functionButtons.forEach(btn => {
                     displayIn += btn.textContent;
                     updateDisplay(btn.textContent);    
                 }
+                break;
+            case "<-":
+                if (operand1 == "") {
+                    displayIn = displayIn.slice(0,displayIn.length - 1);
+                    displayDiv.textContent = displayIn;
+                } else  if (displayIn.length == 0) {
+                    displayIn = operand1.toString();
+                    displayDiv.textContent = operand1;
+                    operand1 = "";
+                    operator = "";
+                } else {
+                    displayIn = displayIn.slice(0,displayIn.length - 1);
+                    displayDiv.textContent = displayDiv.textContent.slice(0,displayDiv.textContent.length - 1);
+                }                
                 break;
             default:
                 console.log(btn.textContent);
