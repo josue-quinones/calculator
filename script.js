@@ -6,6 +6,9 @@ const displayDiv = document.querySelector('div.display');
 const functionButtons = document.querySelectorAll('div.function button');
 const numberButtons = document.querySelectorAll('div.number button');
 const operatorButtons = document.querySelectorAll('div.operator button');
+const allButtonsArr = Array.from(document.querySelectorAll('button'));
+
+displayIn = displayDiv.textContent;
 
 // math functions
 function add(n,m) {
@@ -60,8 +63,6 @@ function logger(btn) {
         console.log("o:"+operator+"\nop1:"+operand1+"\nop2:"+operand2+"\ndisplayIn:"+displayIn+"\nfunc:"+btn.textContent)
 }
 
-displayIn = displayDiv.textContent;
-
 numberButtons.forEach(btn => {
     btn.addEventListener('click',() => {
         updateDisplay(btn.textContent)
@@ -114,7 +115,7 @@ operatorButtons.forEach(btn => {
 functionButtons.forEach(btn => {
     btn.addEventListener('click', () => {
         switch(btn.textContent) {
-            case "Clear":
+            case "(c) clear":
                 displayDiv.textContent = '';
                 operand1 = '';
                 operand2 = '';
@@ -173,4 +174,45 @@ functionButtons.forEach(btn => {
         }
         logger(btn)
     })
+});
+
+document.addEventListener('keydown',(e) => {
+    let b;
+    e.preventDefault();
+    switch(e.key) {
+        case "1":
+        case "2":
+        case "3":
+        case "4":
+        case "5":
+        case "6":
+        case "7":
+        case "8":
+        case "9":
+        case "0":
+        case "-":
+        case "/":
+        case "x":
+        case "+":
+        case "=":
+        case ".":
+            b = allButtonsArr.filter(btn => {return btn.textContent == e.key;})[0];
+            b.click();
+            break;
+        case "c":
+            b = allButtonsArr.filter(btn => btn.textContent == "(c) clear")[0];
+            b.click();
+            break;
+        case "Backspace":
+        case "<":
+            b = allButtonsArr.filter(btn => btn.textContent == "<-")[0];
+            b.click();
+            break;
+        case "Enter":
+            b = allButtonsArr.filter(btn => btn.textContent == "=")[0];
+            b.click();
+            break;
+        default:
+            break;
+    }
 });
