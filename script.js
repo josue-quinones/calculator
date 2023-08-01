@@ -36,8 +36,10 @@ function operate(o,op1,op2) {
         case "x":
             ans = multiply(op1,op2);
             break;
-        case "\/":
-            ans = divide(op1,op2);
+        case "/":
+            if (op2 != 0) {
+                ans = divide(op1,op2);
+            }
             break;
         default:
             break;
@@ -81,14 +83,24 @@ operatorButtons.forEach(btn => {
             displayIn = '';
         } else {
             operand2 = parseInt(displayIn);
-            let result = operate(operator,operand1,operand2);
-            displayDiv.textContent = '';
-            operand1 = result;
-            operand2 = '';
-            displayIn = '';
-            operator = btn.textContent;
+            if (operator == "/" && operand2 == 0) {
+                displayDiv.textContent = 'No division by zero. Clearing values...';
+                operand1 = 0;
+                operand2 = '';
+                operator = '';
+                setTimeout(() => {
+                    displayDiv.textContent = 0;
+                }, 1500);
+            } else {
+                let result = operate(operator,operand1,operand2);
+                displayDiv.textContent = '';
+                operand1 = result;
+                operand2 = '';
+                displayIn = '';
+                operator = btn.textContent;
 
-            updateDisplay(result + " " + operator + " ");
+                updateDisplay(result + " " + operator + " ");
+            }
         }
         logger(btn)
     });
@@ -107,6 +119,14 @@ functionButtons.forEach(btn => {
             case "=":
                 if (operand1 === '' || operator === '' || displayIn === '') {
                     console.error("Invalid operation");
+                } else if (operand2 == 0 && operator == '/') {
+                    displayDiv.textContent = 'No division by zero. Clearing values...';
+                    operand1 = 0;
+                    operand2 = '';
+                    operator = '';
+                    setTimeout(() => {
+                        displayDiv.textContent = 0;
+                    }, 1500);
                 } else {
                     operand2 = parseInt(displayIn);
                     let result = operate(operator,operand1,operand2);
