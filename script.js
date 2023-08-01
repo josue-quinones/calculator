@@ -212,6 +212,10 @@ document.addEventListener('keydown',(e) => {
             b = allButtonsArr.filter(btn => btn.textContent == "=")[0];
             b.click();
             break;
+        case "*":
+            b = allButtonsArr.filter(btn => btn.textContent == "x")[0];
+            b.click();
+            break;
         default:
             break;
     }
