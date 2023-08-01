@@ -1,9 +1,23 @@
 body {
     padding: 0;
     margin: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+div.header {
+    padding-top: 12px;
+    font-size: 36px;
 }
 
 div.display {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: end;
+
     width: calc(100px * 4);
     height: 50px;
     text-align: right;
