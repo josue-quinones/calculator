@@ -23,6 +23,7 @@ div.display {
     text-align: right;
     font-size: 24px;
     font-weight: 700;
+    padding-top: 25px;
 }
 
 div.buttons {
@@ -38,8 +39,21 @@ button {
     width: 100px;
     height: 100px;
     font-size: 24px;
+    font-weight: 700;
 }
 
 button.clear {
     width: calc(100px * 3);
+}
+
+button.back, button.clear {
+    background-color: lightyellow;
+}
+
+div.operator button,button.equals,button.period {
+    background-color: orange;
+}
+
+button.period {
+    font-size: 32px;
 }
