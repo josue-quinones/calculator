@@ -12,8 +12,8 @@ Goals:
 - [x] Can do math with integers and float numbers
 - [x] Divide by zero doesn't crash the calculator
 - [x] Long decimals are rounded
-- [ ] There is a backspace button
-- [ ] There is keyboard support
+- [x] There is a backspace button
+- [x] There is keyboard support
 - [x] Does not use the eval function
 
 Plan:
