@@ -44,6 +44,10 @@ function updateDisplay(val) {
     displayDiv.textContent += val;
 }
 
+function logger() {
+    if (arguments.length) 
+        console.log("o:"+operator+"\nop1:"+operand1+"\nop2:"+operand2+"\ndisplayIn:"+displayIn)
+}
 
 displayIn = displayDiv.textContent;
 
@@ -51,41 +55,56 @@ numberButtons.forEach(btn => {
     btn.addEventListener('click',() => {
         updateDisplay(btn.textContent)
         displayIn += btn.textContent;
+        logger()
     })
 })
 
 operatorButtons.forEach(btn => {
     btn.addEventListener('click',() => {
-        updateDisplay(" " + btn.textContent + " ");
         if (operand2 == '' && operator == '') {
+            updateDisplay(" " + btn.textContent + " ");
             operand1 = parseInt(displayIn);
             operator = btn.textContent;
             displayIn = '';
-        } 
-        else { // need to evaluate
+        } else {
+            operand2 = parseInt(displayIn);
+            let result = operate(operator,operand1,operand2);
+            displayDiv.textContent = '';
+            operand1 = result;
+            operand2 = '';
+            displayIn = '';
+            operator = btn.textContent;
 
+            updateDisplay(result + " " + operator + " ");
         }
-        console.log(operand1,operator,operand2)
-        console.log(displayIn);
+        logger()
     });
 });
 
 functionButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-        if (btn.textContent == "Clear") {
-            displayDiv.textContent = '';
-            operand1 = '';
-            operand2 = '';
-            operator = '';
-            displayIn = '';
-        } else if (btn.textContent == "=") {
-            operand2 = parseInt(displayIn);
-            let tmp = operate(operator,operand1,operand2);
-            console.log(tmp);
-            displayDiv.textContent = '';
-            updateDisplay(tmp);
-        } else {
-            console.log(btn.textContent)
+        switch(btn.textContent) {
+            case "Clear":
+                displayDiv.textContent = '';
+                operand1 = '';
+                operand2 = '';
+                operator = '';
+                displayIn = '';
+                break;
+            case "=":
+                operand2 = parseInt(displayIn);
+                let result = operate(operator,operand1,operand2);
+                displayDiv.textContent = '';
+                updateDisplay(result);
+                operand1 = result;
+                operand2 = '';
+                operator = '';
+                displayIn = result;
+                break;
+            default:
+                console.log(btn.textContent);
+                break;
         }
+        logger()
     })
 });
