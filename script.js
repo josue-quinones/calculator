@@ -25,18 +25,27 @@ function divide(n,m) {
 }
 
 function operate(o,op1,op2) {
+    let ans = 0;
     switch(o) {
         case "+":
-            return add(op1,op2);
+            ans = add(op1,op2);
+            break;
         case "-":
-            return substract(op1,op2);
+            ans = substract(op1,op2);
+            break;
         case "x":
-            return multiply(op1,op2);
+            ans = multiply(op1,op2);
+            break;
         case "\/":
-            return divide(op1,op2);
+            ans = divide(op1,op2);
+            break;
         default:
             break;
     }
+    if (!Number.isInteger(ans)) {
+        ans = parseFloat(ans.toFixed(4));
+    }
+    return ans;
 }
 
 // display function
@@ -44,9 +53,9 @@ function updateDisplay(val) {
     displayDiv.textContent += val;
 }
 
-function logger() {
-    if (arguments.length) 
-        console.log("o:"+operator+"\nop1:"+operand1+"\nop2:"+operand2+"\ndisplayIn:"+displayIn)
+function logger(btn) {
+    // if (arguments.length > 1) 
+        console.log("o:"+operator+"\nop1:"+operand1+"\nop2:"+operand2+"\ndisplayIn:"+displayIn+"\nfunc:"+btn.textContent)
 }
 
 displayIn = displayDiv.textContent;
@@ -55,7 +64,7 @@ numberButtons.forEach(btn => {
     btn.addEventListener('click',() => {
         updateDisplay(btn.textContent)
         displayIn += btn.textContent;
-        logger()
+        logger(btn)
     })
 })
 
@@ -63,7 +72,11 @@ operatorButtons.forEach(btn => {
     btn.addEventListener('click',() => {
         if (operand2 == '' && operator == '') {
             updateDisplay(" " + btn.textContent + " ");
-            operand1 = parseInt(displayIn);
+            if (displayIn.indexOf(".") > -1) { // number is float
+                operand1 = parseFloat(parseFloat(displayIn).toFixed(4));
+            } else {
+                operand1 = parseInt(displayIn);
+            }
             operator = btn.textContent;
             displayIn = '';
         } else {
@@ -77,7 +90,7 @@ operatorButtons.forEach(btn => {
 
             updateDisplay(result + " " + operator + " ");
         }
-        logger()
+        logger(btn)
     });
 });
 
@@ -92,19 +105,23 @@ functionButtons.forEach(btn => {
                 displayIn = '';
                 break;
             case "=":
-                operand2 = parseInt(displayIn);
-                let result = operate(operator,operand1,operand2);
-                displayDiv.textContent = '';
-                updateDisplay(result);
-                operand1 = result;
-                operand2 = '';
-                operator = '';
-                displayIn = result;
+                if (operand1 === '' || operator === '' || displayIn === '') {
+                    console.error("Invalid operation");
+                } else {
+                    operand2 = parseInt(displayIn);
+                    let result = operate(operator,operand1,operand2);
+                    displayDiv.textContent = '';
+                    updateDisplay(result);
+                    operand1 = result;
+                    operand2 = '';
+                    operator = '';
+                    displayIn = result.toString();
+                }
                 break;
             default:
                 console.log(btn.textContent);
                 break;
         }
-        logger()
+        logger(btn)
     })
 });
